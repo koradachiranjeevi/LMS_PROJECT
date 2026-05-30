@@ -19,5 +19,4 @@ Learning Management System (LMS) for Students, Teachers, and Admins.
 - FastAPI
 - MySQL
 
-## Team Members
-- Korada Chiranjeevi
+

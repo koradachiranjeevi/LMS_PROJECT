@@ -8,21 +8,43 @@ import {
 function Home() {
   return (
     <div className="min-h-screen bg-[#0A0F1E] text-white overflow-hidden">
-      {/* Background Glow */}
       <div className="absolute top-20 left-1/2 -translate-x-1/2 h-[400px] w-[400px] rounded-full bg-blue-600/20 blur-[120px]" />
 
-      {/* Navbar */}
       <nav className="flex items-center justify-between px-8 py-6 border-b border-white/10">
         <h1 className="text-2xl font-bold">
           CodeVirus LMS
         </h1>
 
-        <button className="bg-gradient-to-r from-blue-600 to-indigo-500 px-5 py-2 rounded-xl">
-          Get Started
-        </button>
+        <div className="hidden md:flex items-center gap-6 text-sm">
+          <a href="#" className="hover:text-blue-400 transition">
+            Support
+          </a>
+
+          <a href="#" className="hover:text-blue-400 transition">
+            Help Center
+          </a>
+
+          <a href="#" className="hover:text-blue-400 transition">
+            Testimonials
+          </a>
+
+          <a href="#" className="hover:text-blue-400 transition">
+            FAQ
+          </a>
+
+          <a href="#" className="hover:text-blue-400 transition">
+            Blog
+          </a>
+
+          <Link
+            to="/booking-demo"
+            className="bg-gradient-to-r from-blue-600 to-indigo-500 px-4 py-2 rounded-xl hover:scale-105 transition"
+          >
+            Book Demo
+          </Link>
+        </div>
       </nav>
 
-      {/* Hero */}
       <section className="text-center px-6 py-20">
         <h1 className="text-5xl md:text-7xl font-bold leading-tight">
           Learn Smarter.
@@ -37,10 +59,7 @@ function Home() {
         </p>
       </section>
 
-      {/* Cards */}
       <section className="grid md:grid-cols-3 gap-8 px-8 pb-16">
-
-        {/* Student */}
         <div className="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-xl">
           <GraduationCap size={40} className="text-blue-500" />
 
@@ -60,7 +79,6 @@ function Home() {
           </Link>
         </div>
 
-        {/* Teacher */}
         <div className="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-xl">
           <BookOpen size={40} className="text-emerald-500" />
 
@@ -80,7 +98,6 @@ function Home() {
           </Link>
         </div>
 
-        {/* Admin */}
         <div className="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-xl">
           <ShieldCheck size={40} className="text-violet-500" />
 
@@ -99,7 +116,6 @@ function Home() {
             Admin Login
           </Link>
         </div>
-
       </section>
     </div>
   );

@@ -6,6 +6,7 @@ import StudentSignup from "./pages/StudentSignup";
 import TeacherLogin from "./pages/TeacherLogin";
 import TeacherSignup from "./pages/TeacherSignup";
 import AdminLogin from "./pages/AdminLogin";
+import BookDemo from "./pages/BookDemo";
 
 function App() {
   return (
@@ -20,6 +21,8 @@ function App() {
         <Route path="/teacher/signup" element={<TeacherSignup />} />
 
         <Route path="/admin/login" element={<AdminLogin />} />
+
+        <Route path="/booking-demo" element={<BookDemo />} />
       </Routes>
     </BrowserRouter>
   );

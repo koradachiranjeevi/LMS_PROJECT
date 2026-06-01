@@ -1,13 +1,19 @@
 import { Link } from "react-router-dom";
 
-function TeacherLogin() {
+function StudentSignup() {
   return (
     <div className="min-h-screen bg-[#0A0F1E] text-white flex items-center justify-center">
       <div className="bg-white/5 border border-white/10 p-8 rounded-2xl w-96">
 
         <h1 className="text-3xl font-bold mb-6">
-          Teacher Login
+          Student Signup
         </h1>
+
+        <input
+          type="text"
+          placeholder="Full Name"
+          className="w-full p-3 mb-4 rounded-lg bg-black/20 border border-white/10"
+        />
 
         <input
           type="email"
@@ -21,17 +27,23 @@ function TeacherLogin() {
           className="w-full p-3 mb-4 rounded-lg bg-black/20 border border-white/10"
         />
 
-        <button className="w-full bg-emerald-600 py-3 rounded-lg">
-          Login
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          className="w-full p-3 mb-4 rounded-lg bg-black/20 border border-white/10"
+        />
+
+        <button className="w-full bg-blue-600 py-3 rounded-lg">
+          Create Account
         </button>
 
         <p className="mt-4 text-center text-gray-400">
-          Don't have an account?{" "}
+          Already have an account?{" "}
           <Link
-            to="/teacher/signup"
-            className="text-emerald-500 hover:underline"
+            to="/student/login"
+            className="text-blue-500"
           >
-            Sign Up
+            Login
           </Link>
         </p>
 
@@ -40,4 +52,4 @@ function TeacherLogin() {
   );
 }
 
-export default TeacherLogin;
+export default StudentSignup;

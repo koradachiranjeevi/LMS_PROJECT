@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function StudentLogin() {
   return (
     <div className="min-h-screen bg-[#0A0F1E] text-white flex items-center justify-center">
@@ -22,6 +24,16 @@ function StudentLogin() {
         <button className="w-full bg-blue-600 py-3 rounded-lg">
           Login
         </button>
+
+        <p className="mt-4 text-center text-gray-400">
+          Don't have an account?{" "}
+          <Link
+            to="/student/signup"
+            className="text-blue-500 hover:underline"
+          >
+            Sign Up
+          </Link>
+        </p>
 
       </div>
     </div>

@@ -1,12 +1,13 @@
-const express=require('express');
-const router=express.Router();
-const signupRoute=require('../controllers/authController.js');
+const express = require("express");
+const router = express.Router();
 
+const authController = require("../controllers/authController");
 
-router.post('/',signupRoute);
+// Student Login
+router.post("/student/login", authController.studentLogin);
 
+// Teacher OTP Login
+router.post("/teacher/send-otp", authController.sendTeacherOtp);
+router.post("/teacher/verify-otp", authController.verifyTeacherOtp);
 
-
-
-
-module.exports=router;                     
+module.exports = router;

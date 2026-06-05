@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function TeacherLogin() {
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [showOtpField, setShowOtpField] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleSendOtp = async () => {
     try {
@@ -53,9 +56,10 @@ function TeacherLogin() {
       if (data.success) {
         alert("Login Successful");
 
-        // Future JWT token save
+        // Future JWT Integration
         // localStorage.setItem("token", data.token);
 
+        navigate("/teacher/dashboard");
       } else {
         alert(data.message);
       }
@@ -68,7 +72,6 @@ function TeacherLogin() {
   return (
     <div className="min-h-screen bg-[#0A0F1E] text-white flex items-center justify-center">
       <div className="bg-white/5 border border-white/10 p-8 rounded-2xl w-96">
-
         <h1 className="text-3xl font-bold mb-6 text-center">
           Teacher Login
         </h1>
@@ -84,7 +87,7 @@ function TeacherLogin() {
         {!showOtpField ? (
           <button
             onClick={handleSendOtp}
-            className="w-full bg-emerald-600 py-3 rounded-lg hover:bg-emerald-700"
+            className="w-full bg-emerald-600 py-3 rounded-lg hover:bg-emerald-700 transition"
           >
             Send OTP
           </button>
@@ -100,13 +103,12 @@ function TeacherLogin() {
 
             <button
               onClick={handleVerifyOtp}
-              className="w-full bg-blue-600 py-3 rounded-lg hover:bg-blue-700"
+              className="w-full bg-blue-600 py-3 rounded-lg hover:bg-blue-700 transition"
             >
               Verify OTP
             </button>
           </>
         )}
-
       </div>
     </div>
   );

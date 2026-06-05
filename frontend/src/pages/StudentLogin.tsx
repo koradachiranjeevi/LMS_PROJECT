@@ -10,7 +10,7 @@ function StudentLogin() {
   const handleLogin = async () => {
     try {
       const res = await fetch(
-        "http://localhost:5000/api/auth/student/login",
+        "http://localhost:5000/student/login",
         {
           method: "POST",
           headers: {

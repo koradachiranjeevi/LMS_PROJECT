@@ -3,38 +3,6 @@ const Teacher = require("../models/Teacher");
 const Otp = require("../models/Otp");
 const generateOtp = require("../services/otpService");
 
-// ================= STUDENT LOGIN =================
-
-exports.studentLogin = async (req, res) => {
-  try {
-    const { email, password } = req.body;
-
-    const student = await Student.findOne({
-      email,
-      password,
-    });
-
-    if (!student) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid Email or Password",
-      });
-    }
-
-    return res.status(200).json({
-      success: true,
-      message: "Login Successful",
-      student,
-    });
-  } catch (error) {
-    console.log(error);
-
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-};
 
 // ================= TEACHER SEND OTP =================
 

@@ -6,6 +6,7 @@ const cors = require("cors");
 const ConnectDb = require("./config/db");
 const authRoutes = require("./routes/authRoute");
 const studentRoute=require("./routes/studentRoutes")
+const authMiddleware=require('./middleware/authMiddleware');
 
 const app = express();
 

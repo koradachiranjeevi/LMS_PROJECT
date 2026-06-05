@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { GraduationCap, ArrowLeft, Mail, Lock } from "lucide-react";
+import { GoogleLogin } from "@react-oauth/google";
 
 function StudentLogin() {
   const navigate = useNavigate();
@@ -39,10 +40,7 @@ function StudentLogin() {
     }
   };
 
-  const handleGoogleLogin = () => {
-    alert("Google Authentication will be integrated with backend");
-  };
-
+  
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col items-center justify-center relative px-4 py-12 font-sans">
       {/* Background Glow */}
@@ -119,18 +117,56 @@ function StudentLogin() {
           <div className="flex-1 border-t border-slate-200"></div>
         </div>
 
-        <button
-          onClick={handleGoogleLogin}
-          className="w-full flex items-center justify-center gap-3 bg-white border border-slate-200 hover:border-slate-300 text-slate-700 hover:text-slate-800 py-3.5 rounded-xl font-semibold shadow-sm hover:bg-slate-50 active:scale-[0.98] transition-all cursor-pointer"
-        >
-          <svg className="w-5 h-5" viewBox="0 0 24 24">
-            <path
-              fill="#EA4335"
-              d="M12.24 10.285V14.4h6.887c-.648 2.41-2.519 4.114-5.187 4.114-3.48 0-6.3-2.82-6.3-6.3s2.82-6.3 6.3-6.3c1.554 0 2.97.564 4.07 1.498l3.056-3.056C19.167 2.457 15.932 1.3 12.24 1.3 6.136 1.3 1.2 6.236 1.2 12.34s4.936 11.04 11.04 11.04c6.357 0 11.04-4.473 11.04-11.04 0-.742-.086-1.423-.245-2.057H12.24Z"
-            />
-          </svg>
-          Continue with Google
-        </button>
+       <div className="flex justify-center">
+  <GoogleLogin
+    onSuccess={async (credentialResponse) => {
+      try {
+
+        const res = await fetch(
+          "http://localhost:5000/api/auth/google-login",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              credential: credentialResponse.credential,
+            }),
+          }
+        );
+
+        const data = await res.json();
+
+        if (data.success) {
+
+          localStorage.setItem(
+            "token",
+            data.token
+          );
+
+          alert("Google Login Successful");
+
+          navigate("/student/dashboard");
+
+        } else {
+
+          alert(data.message);
+
+        }
+
+      } catch (error) {
+
+        console.log(error);
+
+        alert("Google Login Failed");
+
+      }
+    }}
+    onError={() => {
+      alert("Google Login Failed");
+    }}
+  />
+</div>
 
         <p className="mt-6 text-center text-slate-500 text-sm">
           Don't have an account?{" "}

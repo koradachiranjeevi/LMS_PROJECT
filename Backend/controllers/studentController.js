@@ -2,44 +2,56 @@ const Student = require("../models/user.js");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-async function studentSignup(req, res) {
 
+
+async function studentSignup(req, res) {
   try {
 
     const { name, email, password } = req.body;
 
-    const existingStudent = await Student.findOne({ email });
+    // Validation
+    if (!name || !email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: "All fields are required",
+      });
+    }
+
+    // Check existing user
+    const existingStudent = await Student.findOne({
+      email: email.toLowerCase(),
+    });
 
     if (existingStudent) {
-
       return res.status(400).json({
         success: false,
         message: "Student already exists",
       });
-
     }
 
-    // ================= HASH PASSWORD =================
-
+    // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // ================= CREATE STUDENT =================
-
+    // Create student
     const student = await Student.create({
       name,
-      email,
+      email: email.toLowerCase(),
       password: hashedPassword,
+      role: "student",
     });
 
     return res.status(201).json({
       success: true,
       message: "Signup Successful",
-      student,
+      student: {
+        id: student._id,
+        name: student.name,
+        email: student.email,
+        role: student.role,
+      },
     });
 
-  }
-
-  catch (error) {
+  } catch (error) {
 
     console.log(error);
 
@@ -49,7 +61,6 @@ async function studentSignup(req, res) {
     });
 
   }
-
 }
 
 

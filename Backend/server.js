@@ -1,21 +1,22 @@
+require("dotenv").config();
 
-require('dotenv').config();
-const express=require('express');
-const ConnectDb=require('./config/db.js')
-const signup=require('./routes/authRoute.js');
-const cors = require('cors')
+const express = require("express");
+const cors = require("cors");
 
+const ConnectDb = require("./config/db");
+const authRoutes = require("./routes/authRoute");
 
+const app = express();
 
-const app=express();
 app.use(cors());
 app.use(express.json());
-app.use('/signup',signup);
 
+app.use("/api/auth", authRoutes);
 
-ConnectDb().then(()=>{
-app.listen(process.env.PORT,()=>{
-  console.log('server connected on port 5000')
-  
-})
-})
+ConnectDb()
+  .then(() => {
+    app.listen(process.env.PORT || 5000, () => {
+      console.log("Server running on port 5000");
+    });
+  })
+  .catch((err) => console.log(err));

@@ -25,13 +25,13 @@ function Home() {
               <GraduationCap size={24} />
             </div>
             <h1 className="text-xl font-extrabold tracking-tight text-slate-900">
-              CodeVirus <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">LMS</span>
+              Codevirus <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">LMS</span>
             </h1>
           </div>
 
           <div className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
             <a href="#" className="hover:text-blue-600 transition flex items-center gap-1">
-              <LifeBuoy size={16} /> Support
+              <LifeBuoy size={16} />
             </a>
             <a href="#" className="hover:text-blue-600 transition flex items-center gap-1">
               <HelpCircle size={16} /> Help Center

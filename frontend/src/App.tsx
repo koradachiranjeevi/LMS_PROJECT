@@ -23,6 +23,10 @@ import AdminAnalytics from "./pages/AdminAnalytics";
 import AdminMessages from "./pages/AdminMessages";
 import AdminBulkUpload from "./pages/AdminBulkUpload";
 import AdminSettings from "./pages/AdminSettings";
+import AdminUserManagement from "./pages/AdminUserManagement";
+
+
+
 import StudentDashboard from "./pages/StudentDashboard";
 import BookDemo from "./pages/BookDemo";
 
@@ -77,6 +81,10 @@ function App() {
         <Route
   path="/student/dashboard"
   element={<StudentDashboard />}
+/>
+<Route
+  path="/admin/users"
+  element={<AdminUserManagement />}
 />
 
         {/* Demo */}

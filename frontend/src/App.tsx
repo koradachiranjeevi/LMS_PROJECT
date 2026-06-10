@@ -13,6 +13,14 @@ import SupportTickets from "./pages/SupportTickets";
 
 import TeacherLogin from "./pages/TeacherLogin";
 import TeacherDashboard from "./pages/TeacherDashboard";
+import TeacherProfile from "./pages/TeacherProfile";
+import TeacherCourses from "./pages/TeacherCourses";
+import TeacherCourseManagement from "./pages/TeacherCourseManagement";
+import TeacherEvaluation from "./pages/TeacherEvaluation";
+import TeacherStudents from "./pages/TeacherStudents";
+import TeacherLiveClasses from "./pages/TeacherLiveClasses";
+import TeacherInteraction from "./pages/TeacherInteraction";
+import TeacherAnalytics from "./pages/TeacherAnalytics";
 
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -67,6 +75,38 @@ function App() {
         {/* Teacher */}
         <Route path="/teacher/login" element={<TeacherLogin />} />
         <Route path="/teacher/dashboard" element={<TeacherDashboard />} />
+        <Route
+  path="/teacher/profile"
+  element={<TeacherProfile />}
+/>
+<Route
+  path="/teacher/courses"
+  element={<TeacherCourses />}
+/>
+<Route
+  path="/teacher/course-management"
+  element={<TeacherCourseManagement />}
+/>
+<Route
+  path="/teacher/evaluation"
+  element={<TeacherEvaluation />}
+/>
+<Route
+  path="/teacher/students"
+  element={<TeacherStudents />}
+/>
+<Route
+  path="/teacher/live-classes"
+  element={<TeacherLiveClasses />}
+/>
+<Route
+  path="/teacher/interaction"
+  element={<TeacherInteraction />}
+/>
+<Route
+  path="/teacher/analytics"
+  element={<TeacherAnalytics />}
+/>
 
         {/* Admin */}
         <Route path="/admin/login" element={<AdminLogin />} />

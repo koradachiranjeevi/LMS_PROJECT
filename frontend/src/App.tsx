@@ -32,8 +32,8 @@ import AdminMessages from "./pages/AdminMessages";
 import AdminBulkUpload from "./pages/AdminBulkUpload";
 import AdminSettings from "./pages/AdminSettings";
 import AdminUserManagement from "./pages/AdminUserManagement";
-import AdminTeacherApproval from "./pages/AdminTeacherApproval";
-import AdminReports from "./pages/AdminReports";
+
+
 
 import StudentDashboard from "./pages/StudentDashboard";
 import BookDemo from "./pages/BookDemo";
@@ -125,14 +125,6 @@ function App() {
 <Route
   path="/admin/users"
   element={<AdminUserManagement />}
-/>
-<Route
-  path="/admin/teacher-approval"
-  element={<AdminTeacherApproval />}
-/>
-<Route
-  path="/admin/reports"
-  element={<AdminReports />}
 />
 
         {/* Demo */}

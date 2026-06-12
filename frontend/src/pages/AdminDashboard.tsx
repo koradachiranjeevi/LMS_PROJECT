@@ -6,8 +6,9 @@ import {
   LogOut,
   GraduationCap,
 } from "lucide-react";
-
+import { useNavigate,NavLink,Link} from "react-router-dom";
 function AdminDashboard() {
+  const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem("token");
     window.location.href = "/admin/login";
@@ -37,13 +38,13 @@ function AdminDashboard() {
             Dashboard
           </button>
 
-          <button className="w-full text-left px-4 py-3 rounded-xl hover:bg-slate-100 text-slate-700">
+         <button className="w-full text-left px-4 py-3 rounded-xl hover:bg-slate-100 text-slate-700">
             Students
           </button>
 
-          <button className="w-full text-left px-4 py-3 rounded-xl hover:bg-slate-100 text-slate-700">
+          <Link to='teacherlist'><button className="w-full text-left px-4 py-3 rounded-xl hover:bg-slate-100 text-slate-700">
             Teachers
-          </button>
+          </button></Link>
 
           <button className="w-full text-left px-4 py-3 rounded-xl hover:bg-slate-100 text-slate-700">
             Courses
@@ -177,8 +178,13 @@ function AdminDashboard() {
             </div>
 
             <div className="p-4 rounded-xl bg-slate-50">
-              Teacher account approved.
-            </div>
+  <button
+    onClick={() => navigate("/admin/teachers")}
+    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg"
+  >
+    Add New Teacher Account
+  </button>
+</div>
 
             <div className="p-4 rounded-xl bg-slate-50">
               New course published.

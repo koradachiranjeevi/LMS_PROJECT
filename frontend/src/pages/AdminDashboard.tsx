@@ -14,6 +14,39 @@ function AdminDashboard() {
     window.location.href = "/admin/login";
   };
 
+  const fetchAdminDashboard = async () => {
+  try {
+    const token = localStorage.getItem("token");
+
+    const response = await fetch(
+      "http://localhost:5000/api/admin/dashboard",
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    console.log(data);
+
+    if (!data.success) {
+      alert(data.message);
+    }
+
+  } catch (error) {
+    console.log(error);
+  }
+}; 
+
+
+useEffect(() => {
+  fetchAdminDashboard();
+}, []);
+
   return (
     <div className="min-h-screen bg-slate-50 flex">
       {/* Sidebar */}

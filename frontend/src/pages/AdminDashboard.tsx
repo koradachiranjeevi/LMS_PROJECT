@@ -7,6 +7,8 @@ import {
   GraduationCap,
 } from "lucide-react";
 
+import { Link } from "react-router-dom";
+
 function AdminDashboard() {
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -33,33 +35,70 @@ function AdminDashboard() {
         </div>
 
         <div className="space-y-3">
-          <button className="w-full text-left px-4 py-3 rounded-xl bg-blue-50 text-blue-600 font-semibold">
+
+          <Link
+            to="/admin/dashboard"
+            className="block w-full text-left px-4 py-3 rounded-xl bg-blue-50 text-blue-600 font-semibold"
+          >
             Dashboard
-          </button>
+          </Link>
 
-          <button className="w-full text-left px-4 py-3 rounded-xl hover:bg-slate-100 text-slate-700">
+          <Link
+            to="/admin/students"
+            className="block w-full text-left px-4 py-3 rounded-xl hover:bg-slate-100 text-slate-700"
+          >
             Students
-          </button>
+          </Link>
 
-          <button className="w-full text-left px-4 py-3 rounded-xl hover:bg-slate-100 text-slate-700">
+          <Link
+            to="/admin/teachers"
+            className="block w-full text-left px-4 py-3 rounded-xl hover:bg-slate-100 text-slate-700"
+          >
             Teachers
-          </button>
+          </Link>
 
-          <button className="w-full text-left px-4 py-3 rounded-xl hover:bg-slate-100 text-slate-700">
+          <Link
+            to="/admin/courses"
+            className="block w-full text-left px-4 py-3 rounded-xl hover:bg-slate-100 text-slate-700"
+          >
             Courses
-          </button>
+          </Link>
 
-          <button className="w-full text-left px-4 py-3 rounded-xl hover:bg-slate-100 text-slate-700">
+          <Link
+            to="/admin/analytics"
+            className="block w-full text-left px-4 py-3 rounded-xl hover:bg-slate-100 text-slate-700"
+          >
             Analytics
-          </button>
+          </Link>
 
-          <button className="w-full text-left px-4 py-3 rounded-xl hover:bg-slate-100 text-slate-700">
+          <Link
+            to="/admin/messages"
+            className="block w-full text-left px-4 py-3 rounded-xl hover:bg-slate-100 text-slate-700"
+          >
             Messages
-          </button>
+          </Link>
 
-          <button className="w-full text-left px-4 py-3 rounded-xl hover:bg-slate-100 text-slate-700">
-            Settings
-          </button>
+          <Link
+            to="/admin/users"
+            className="block w-full text-left px-4 py-3 rounded-xl hover:bg-slate-100 text-slate-700"
+          >
+            User Management
+          </Link>
+
+          <Link
+            to="/admin/teacher-approval"
+            className="block w-full text-left px-4 py-3 rounded-xl hover:bg-slate-100 text-slate-700"
+          >
+            Teacher Approval
+          </Link>
+
+          <Link
+            to="/admin/reports"
+            className="block w-full text-left px-4 py-3 rounded-xl hover:bg-slate-100 text-slate-700"
+          >
+            Reports
+          </Link>
+
         </div>
 
         <button
@@ -73,6 +112,7 @@ function AdminDashboard() {
 
       {/* Main Content */}
       <div className="flex-1 p-8">
+
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-slate-900">
@@ -87,6 +127,7 @@ function AdminDashboard() {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+
           <div className="bg-white p-6 rounded-3xl shadow-lg border border-slate-100">
             <div className="flex justify-between items-center">
               <Users className="text-blue-600" size={28} />
@@ -163,6 +204,7 @@ function AdminDashboard() {
               Active Users
             </p>
           </div>
+
         </div>
 
         {/* Recent Activity */}
@@ -172,6 +214,7 @@ function AdminDashboard() {
           </h2>
 
           <div className="space-y-4">
+
             <div className="p-4 rounded-xl bg-slate-50">
               New student registered successfully.
             </div>
@@ -187,8 +230,10 @@ function AdminDashboard() {
             <div className="p-4 rounded-xl bg-slate-50">
               Platform backup completed.
             </div>
+
           </div>
         </div>
+
       </div>
     </div>
   );

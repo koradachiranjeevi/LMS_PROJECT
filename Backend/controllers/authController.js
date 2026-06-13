@@ -1,99 +1,64 @@
-const Student = require("../models/Student");
-const Teacher = require("../models/Teacher");
-const Otp = require("../models/Otp");
-const generateOtp = require("../services/otpService");
+const User = require("../models/user");
+const jwt = require("jsonwebtoken");
+const { OAuth2Client } = require("google-auth-library");
 
-// ================= STUDENT LOGIN =================
+const client = new OAuth2Client(
+  process.env.GOOGLE_CLIENT_ID
+);
 
-exports.studentLogin = async (req, res) => {
+const googleLogin = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { credential } = req.body;
 
-    const student = await Student.findOne({
-      email,
-      password,
+    const ticket = await client.verifyIdToken({
+      idToken: credential,
+      audience: process.env.GOOGLE_CLIENT_ID,
     });
 
-    if (!student) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid Email or Password",
-      });
-    }
+    const payload = ticket.getPayload();
+
+    const { email, name, picture } = payload;
+
+    let user = await User.findOne({ email });
+
+    if (!user) {
+      user = await User.create({
+        name,
+        email,
+        password: "google-auth-user",
+        role: "student",
+        profilePic: picture,
+    });
+  }
+
+    const token = jwt.sign(
+      {
+        id: user._id,
+        email: user.email,
+        role: user.role,
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "7d",
+      }
+    );
 
     return res.status(200).json({
       success: true,
-      message: "Login Successful",
-      student,
+      message: "Google Login Successful",
+      token,
+      user,
     });
   } catch (error) {
     console.log(error);
 
     return res.status(500).json({
       success: false,
-      message: "Server Error",
+      message: "Google Login Failed",
     });
   }
 };
 
-// ================= TEACHER SEND OTP =================
-
-exports.sendTeacherOtp = async (req, res) => {
-  try {
-    const { email } = req.body;
-
-    const otp = await generateOtp(email);
-
-    console.log("Generated OTP:", otp);
-
-    return res.status(200).json({
-      success: true,
-      message: "OTP Sent",
-    });
-  } catch (error) {
-    console.log(error);
-
-    return res.status(500).json({
-      success: false,
-      message: error.message,
-    });
-  }
-};
-
-// ================= VERIFY OTP =================
-
-exports.verifyTeacherOtp = async (req, res) => {
-  try {
-    const { email, otp } = req.body;
-
-    const otpData = await Otp.findOne({ email });
-
-    if (!otpData) {
-      return res.status(400).json({
-        success: false,
-        message: "OTP not found",
-      });
-    }
-
-    if (otpData.otp !== otp) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid OTP",
-      });
-    }
-
-    await Otp.deleteOne({ email });
-
-    return res.status(200).json({
-      success: true,
-      message: "Login Successful",
-    });
-  } catch (error) {
-    console.log(error);
-
-    return res.status(500).json({
-      success: false,
-      message: error.message,
-    });
-  }
+module.exports = {
+  googleLogin,
 };

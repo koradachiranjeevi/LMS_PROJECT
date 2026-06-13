@@ -1,12 +1,63 @@
 const Teacher = require("../models/Teacher");
-const Otp = require("../models/Otp");
 
-const sendEmail = require("../services/emailService");
-const generateOtp = require("../services/otpService");
+// Add Teacher
+const addTeacher = async (req, res) => {
+  try {
+    const { name, email } = req.body;
 
-const generateToken = require("../utils/generateToken");
+    const teacherExists = await Teacher.findOne({ email });
 
-exports.sendTeacherOtp = async (req, res) => {
+    if (teacherExists) {
+      return res.status(400).json({
+        success: false,
+        message: "Teacher already exists",
+      });
+    }
+
+    const teacher = await Teacher.create({
+      name,
+      email,
+    });
+
+    return res.status(201).json({
+      success: true,
+      message: "Teacher Added Successfully",
+      teacher,
+    });
+
+  } catch (error) {
+
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+
+  }
+};
+
+// Get All Teachers
+const getAllTeachers = async (req, res) => {
+  try {
+
+    const teachers = await Teacher.find();
+
+    return res.status(200).json({
+      success: true,
+      teachers,
+    });
+
+  } catch (error) {
+
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+
+  }
+};
+
+// Delete Teacher
+const deleteTeacher = async (req, res) => {
   try {
     const { email } = req.body;
 

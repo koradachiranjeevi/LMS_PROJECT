@@ -127,8 +127,8 @@ function App() {
   element={<AdminUserManagement />}
 />
 <Route
-  path="/admin/teacher-approval"
-  element={<AdminTeacherApproval />}
+  path="/admin/AdminAddTeacher"
+  element={<AdminTeachers />}
 />
 <Route
   path="/admin/reports"

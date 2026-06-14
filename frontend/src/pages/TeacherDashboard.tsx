@@ -11,6 +11,32 @@ import {
 } from "lucide-react";
 
 function TeacherDashboard() {
+  const fetchDashboard = async () => {
+  try {
+    const token = localStorage.getItem("token");
+
+    const response = await fetch(
+      "http://localhost:5000/api/teacher/dashboard",
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    console.log(data);
+
+  } catch (error) {
+    console.log(error);
+  }
+};
+useEffect(() => {
+  fetchDashboard();
+}, []);
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 flex font-sans">
       {/* Sidebar */}

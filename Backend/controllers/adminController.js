@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 
+
 // Nodemailer Config
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -139,7 +140,9 @@ const verifyAdminOtp = async (req, res) => {
   }
 };
 
+
 module.exports = {
   sendAdminOtp,
   verifyAdminOtp,
+  
 };

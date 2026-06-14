@@ -8,8 +8,48 @@ import {
 } from "lucide-react";
 
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 function AdminDashboard() {
+  const[totalStudents, setTotalStudents] = useState(0);
+  const[totalTeachers, setTotalTeachers] = useState(0);
+  async function fetchTotalTeachers() {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch("http://localhost:5000/api/total-teachers", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      setTotalTeachers(data.total);
+    } catch (error) {
+      console.error("Error fetching total teachers:", error);
+    }
+  }
+
+  async function fetchTotalStudents() {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch("http://localhost:5000/api/total-students", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      setTotalStudents(data.total);
+    } catch (error) {
+      console.error("Error fetching total students:", error);
+    }
+  }
+  useEffect(() => {
+    fetchTotalStudents();
+    fetchTotalTeachers();
+  }, []);
   const handleLogout = () => {
     localStorage.removeItem("token");
     window.location.href = "/admin/login";
@@ -137,7 +177,7 @@ function AdminDashboard() {
             </div>
 
             <h2 className="text-4xl font-bold mt-4 text-slate-900">
-              1250
+              {totalStudents}
             </h2>
 
             <p className="text-slate-500 mt-1">
@@ -157,7 +197,7 @@ function AdminDashboard() {
             </div>
 
             <h2 className="text-4xl font-bold mt-4 text-slate-900">
-              85
+              {totalTeachers}
             </h2>
 
             <p className="text-slate-500 mt-1">

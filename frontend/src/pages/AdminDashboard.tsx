@@ -6,52 +6,14 @@ import {
   LogOut,
   GraduationCap,
 } from "lucide-react";
-<<<<<<< HEAD
 
 import { Link } from "react-router-dom";
 
-=======
-import { useNavigate,NavLink,Link} from "react-router-dom";
->>>>>>> 88ca8d42f1c48b78964792b5b110d17819f1650d
 function AdminDashboard() {
-  const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem("token");
     window.location.href = "/admin/login";
   };
-
-  const fetchAdminDashboard = async () => {
-  try {
-    const token = localStorage.getItem("token");
-
-    const response = await fetch(
-      "http://localhost:5000/api/admin/dashboard",
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    const data = await response.json();
-
-    console.log(data);
-
-    if (!data.success) {
-      alert(data.message);
-    }
-
-  } catch (error) {
-    console.log(error);
-  }
-}; 
-
-
-useEffect(() => {
-  fetchAdminDashboard();
-}, []);
 
   return (
     <div className="min-h-screen bg-slate-50 flex">
@@ -81,29 +43,19 @@ useEffect(() => {
             Dashboard
           </Link>
 
-<<<<<<< HEAD
           <Link
             to="/admin/students"
             className="block w-full text-left px-4 py-3 rounded-xl hover:bg-slate-100 text-slate-700"
           >
-=======
-         <button className="w-full text-left px-4 py-3 rounded-xl hover:bg-slate-100 text-slate-700">
->>>>>>> 88ca8d42f1c48b78964792b5b110d17819f1650d
             Students
           </Link>
 
-<<<<<<< HEAD
           <Link
             to="/admin/teachers"
             className="block w-full text-left px-4 py-3 rounded-xl hover:bg-slate-100 text-slate-700"
           >
             Teachers
           </Link>
-=======
-          <Link to='teacherlist'><button className="w-full text-left px-4 py-3 rounded-xl hover:bg-slate-100 text-slate-700">
-            Teachers
-          </button></Link>
->>>>>>> 88ca8d42f1c48b78964792b5b110d17819f1650d
 
           <Link
             to="/admin/courses"
@@ -268,13 +220,8 @@ useEffect(() => {
             </div>
 
             <div className="p-4 rounded-xl bg-slate-50">
-  <button
-    onClick={() => navigate("/admin/teachers")}
-    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg"
-  >
-    Add New Teacher Account
-  </button>
-</div>
+              Teacher account approved.
+            </div>
 
             <div className="p-4 rounded-xl bg-slate-50">
               New course published.

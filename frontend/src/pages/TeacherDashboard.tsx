@@ -9,7 +9,8 @@ import {
   Activity,
   GraduationCap,
 } from "lucide-react";
-
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 function TeacherDashboard() {
   const fetchDashboard = async () => {
   try {
@@ -51,35 +52,85 @@ useEffect(() => {
               CodeVirus <span className="text-blue-600">Teacher</span>
             </h1>
           </div>
-
           {/* Navigation Links */}
-          <div className="space-y-2">
-            <button className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-blue-50 text-blue-600 font-semibold shadow-sm transition-all text-left">
-              <LayoutDashboard size={18} />
-              <span>Dashboard</span>
-            </button>
+<div className="space-y-2">
 
-            <button className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-slate-50 font-medium transition-all text-left">
-              <BookOpen size={18} />
-              <span>Courses</span>
-            </button>
+  <Link
+    to="/teacher/dashboard"
+    className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-blue-50 text-blue-600 font-semibold shadow-sm transition-all text-left"
+  >
+    <LayoutDashboard size={18} />
+    <span>Dashboard</span>
+  </Link>
 
-            <button className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-slate-50 font-medium transition-all text-left">
-              <Users size={18} />
-              <span>Students</span>
-            </button>
+  <Link
+    to="/teacher/profile"
+    className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-slate-50 font-medium transition-all text-left"
+  >
+    <Users size={18} />
+    <span>Profile</span>
+  </Link>
 
-            <button className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-slate-50 font-medium transition-all text-left">
-              <FileText size={18} />
-              <span>Assignments</span>
-            </button>
+  <Link
+    to="/teacher/courses"
+    className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-slate-50 font-medium transition-all text-left"
+  >
+    <BookOpen size={18} />
+    <span>Courses</span>
+  </Link>
 
-            <button className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-slate-50 font-medium transition-all text-left">
-              <CalendarCheck size={18} />
-              <span>Attendance</span>
-            </button>
-          </div>
-        </div>
+  <Link
+    to="/teacher/course-management"
+    className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-slate-50 font-medium transition-all text-left"
+  >
+    <FileText size={18} />
+    <span>Course Management</span>
+  </Link>
+
+  <Link
+    to="/teacher/evaluation"
+    className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-slate-50 font-medium transition-all text-left"
+  >
+    <CheckCircle2 size={18} />
+    <span>Evaluation</span>
+  </Link>
+
+  <Link
+    to="/teacher/students"
+    className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-slate-50 font-medium transition-all text-left"
+  >
+    <Users size={18} />
+    <span>Students</span>
+  </Link>
+
+  <Link
+    to="/teacher/live-classes"
+    className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-slate-50 font-medium transition-all text-left"
+  >
+    <CalendarCheck size={18} />
+    <span>Live Classes</span>
+  </Link>
+
+  <Link
+    to="/teacher/interaction"
+    className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-slate-50 font-medium transition-all text-left"
+  >
+    <Activity size={18} />
+    <span>Interaction</span>
+  </Link>
+
+  <Link
+    to="/teacher/analytics"
+    className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-slate-50 font-medium transition-all text-left"
+  >
+    <Activity size={18} />
+    <span>Analytics</span>
+  </Link>
+
+</div>
+</div>
+
+          
 
         {/* User Footer Profile */}
         <div className="border-t border-slate-100 pt-4 px-2">
@@ -87,6 +138,7 @@ useEffect(() => {
           <p className="text-sm font-bold text-slate-800 mt-0.5">Professor CodeVirus</p>
         </div>
       </aside>
+
 
       {/* Main Content */}
       <main className="flex-1 p-8 overflow-y-auto">

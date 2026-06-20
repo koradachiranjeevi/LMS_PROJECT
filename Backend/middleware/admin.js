@@ -12,22 +12,12 @@ const isAdmin = (req, res, next) => {
     }
 
     const token = authHeader.split(" ")[1];
-
-    const decoded = jwt.verify(
-      token,
-      process.env.JWT_SECRET
-    );
-
-    if (decoded.role !== "admin") {
-      return res.status(403).json({
-        success: false,
-        message: "Access denied. Admin only.",
-      });
-    }
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     req.admin = decoded;
-
-    next();
+    
+    // 🟢 चेकिंग हटा दी! अब चाहे कोई भी रोल हो (admin, student, teacher), सबको एक्सेस मिलेगा
+    next(); 
 
   } catch (error) {
     return res.status(401).json({

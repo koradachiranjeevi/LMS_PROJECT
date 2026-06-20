@@ -1,4 +1,4 @@
-import { Search, UserX, Plus, Edit, KeyRound } from "lucide-react";
+import { Search, UserX, Plus, Edit, KeyRound, ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface Teacher {
@@ -24,6 +24,10 @@ function AdminTeachers() {
   const [showOtpModal, setShowOtpModal] = useState(false);
   const [deletionOtp, setDeletionOtp] = useState("");
   const [loading, setLoading] = useState(false);
+
+  // --- Pagination States ---
+  const [currentPage, setCurrentPage] = useState(1);
+  const teachersPerPage = 5; // एक पेज पर दिखने वाले टीचर्स की संख्या
 
   // ==========================================
   // 1. FETCH ALL TEACHERS
@@ -71,14 +75,12 @@ function AdminTeachers() {
     try {
       let response;
       if (editingId) {
-        // Naya route for Update (admin flow se linked)
         response = await fetch(`http://localhost:5000/api/admin/update-teacher/${editingId}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ name, email, phone }),
         });
       } else {
-        // Corrected Add Teacher Endpoint URL
         response = await fetch("http://localhost:5000/api/admin/add-teacher", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -120,7 +122,7 @@ function AdminTeachers() {
       if (data.success) {
         alert("Deletion OTP Sent Successfully! Check terminal/email.");
         setDeleteEmail(teacherEmail);
-        setShowOtpModal(true); // Open Secure OTP Dialog box
+        setShowOtpModal(true); 
       } else {
         alert(data.message || "Failed to trigger deletion process.");
       }
@@ -166,11 +168,25 @@ function AdminTeachers() {
     }
   };
 
+  // --- Search और Pagination लॉजिक ---
   const filteredTeachers = teachers.filter(
     (teacher) =>
       teacher.name.toLowerCase().includes(search.toLowerCase()) ||
       teacher.email.toLowerCase().includes(search.toLowerCase())
   );
+
+  // वर्तमान पेज के डेटा की गणना (Slicing)
+  const indexOfLastTeacher = currentPage * teachersPerPage;
+  const indexOfFirstTeacher = indexOfLastTeacher - teachersPerPage;
+  const currentTeachers = filteredTeachers.slice(indexOfFirstTeacher, indexOfLastTeacher);
+
+  // कुल पेज संख्या
+  const totalPages = Math.ceil(filteredTeachers.length / teachersPerPage);
+
+  // सर्च बदलने पर वापस पहले पेज पर भेजें
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search]);
 
   return (
     <div className="min-h-screen bg-slate-50 p-8 relative">
@@ -261,7 +277,7 @@ function AdminTeachers() {
             </thead>
 
             <tbody>
-              {filteredTeachers.map((teacher) => (
+              {currentTeachers.map((teacher) => (
                 <tr key={teacher._id} className="border-t hover:bg-slate-50 transition-colors">
                   <td className="p-4 font-semibold text-blue-600">{teacher.teacherId || "N/A"}</td>
                   <td className="p-4 font-medium text-slate-800">{teacher.name}</td>
@@ -294,15 +310,85 @@ function AdminTeachers() {
                 </tr>
               ))}
 
-              {filteredTeachers.length === 0 && (
+              {currentTeachers.length === 0 && (
                 <tr>
                   <td colSpan={6} className="text-center p-8 text-slate-400 font-medium">
-                    No Teachers Found
+                    {search ? "No Matching Teachers Found" : "No Teachers Found"}
                   </td>
                 </tr>
               )}
             </tbody>
           </table>
+
+          {/* --- PAGINATION CONTROLS CONTROLLER --- */}
+          {totalPages > 1 && (
+            <div className="bg-slate-50 px-4 py-4 flex items-center justify-between border-t border-slate-200 sm:px-6">
+              {/* Responsive Mobile Layout buttons */}
+              <div className="flex-1 flex justify-between sm:hidden">
+                <button
+                  onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                  disabled={currentPage === 1}
+                  className="relative inline-flex items-center px-4 py-2 border border-slate-300 text-sm font-medium rounded-md text-slate-700 bg-white hover:bg-slate-50 disabled:opacity-50"
+                >
+                  Previous
+                </button>
+                <button
+                  onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                  disabled={currentPage === totalPages}
+                  className="ml-3 relative inline-flex items-center px-4 py-2 border border-slate-300 text-sm font-medium rounded-md text-slate-700 bg-white hover:bg-slate-50 disabled:opacity-50"
+                >
+                  Next
+                </button>
+              </div>
+
+              {/* Desktop UI Layout view numbers */}
+              <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                <div>
+                  <p className="text-sm text-slate-700">
+                    Showing <span className="font-medium">{indexOfFirstTeacher + 1}</span> to{" "}
+                    <span className="font-medium">
+                      {Math.min(indexOfLastTeacher, filteredTeachers.length)}
+                    </span>{" "}
+                    of <span className="font-medium">{filteredTeachers.length}</span> results
+                  </p>
+                </div>
+                <div>
+                  <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                    <button
+                      onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                      disabled={currentPage === 1}
+                      className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-slate-300 bg-white text-sm font-medium text-slate-500 hover:bg-slate-50 disabled:opacity-50"
+                    >
+                      <ChevronLeft size={16} />
+                    </button>
+                    
+                    {/* Loops Through 1, 2, 3 buttons */}
+                    {Array.from({ length: totalPages }, (_, index) => (
+                      <button
+                        key={index + 1}
+                        onClick={() => setCurrentPage(index + 1)}
+                        className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${
+                          currentPage === index + 1
+                            ? "z-10 bg-indigo-50 border-indigo-500 text-indigo-600"
+                            : "bg-white border-slate-300 text-slate-500 hover:bg-slate-50"
+                        }`}
+                      >
+                        {index + 1}
+                      </button>
+                    ))}
+
+                    <button
+                      onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                      disabled={currentPage === totalPages}
+                      className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-slate-300 bg-white text-sm font-medium text-slate-500 hover:bg-slate-50 disabled:opacity-50"
+                    >
+                      <ChevronRight size={16} />
+                    </button>
+                  </nav>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
